@@ -191,7 +191,6 @@ async def del_message(callback: CallbackQuery) -> None:
         message_id = callback.data.split('@')[0].replace('message_delete_', '')
         try:
                 await bot.delete_message(chat_id=chat_id, message_id=message_id)
-                await callback.message.answer('Сообщение удалено')
                 
         except Exception as e:
                 await callback.message.answer(f'Что-то пошло не так\n{e}')
