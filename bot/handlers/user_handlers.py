@@ -107,7 +107,7 @@ async def get_forward_message(message: Message) -> None:
                 await message.answer('Что то не так', reply_markup=kb.main)
 
 #Формируем пересылаемое сообщение
-async def build_message(message: Message) -> Message:
+async def build_message(message: Message) -> None:
         caption = message.caption or message.text or ''
         keybord = await kb.channel_btn_to_send_post(message.from_user.id, message=message)
         entities = message.caption_entities if message.caption else message.entities
@@ -115,33 +115,39 @@ async def build_message(message: Message) -> Message:
         if message.photo:
             mes = await message.answer_photo(photo=message.photo[-1].file_id, caption=caption, caption_entities=entities, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)  
         elif message.video:
             mes = await message.answer_video(video=message.video.file_id, caption=caption, caption_entities=entities, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)
         elif message.document:
             mes = await message.answer_document(document=message.document.file_id, caption_entities=entities, caption=caption, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)
         elif message.audio:
             mes = await message.answer_audio(audio=message.audio.file_id, caption=caption, caption_entities=entities, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)
         elif message.voice:
             mes = await message.answer_voice(voice=message.voice.file_id, caption=caption, caption_entities=entities, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)
         elif message.animation:
             mes = await message.answer_animation(animation=message.animation.file_id, caption=caption, caption_entities=entities, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)
         else:
             # Если это просто текстовое сообщение
             mes = await message.answer(caption, entities=entities, reply_markup=keybord)
             await bot.delete_message(message_id=message.message_id, chat_id=message.chat.id)
-            return mes
-            
+            key = await kb.channel_btn_to_send_post(message.from_user.id, message=mes)
+            await bot.edit_message_reply_markup(message_id=mes.message_id, reply_markup=key, chat_id=mes.chat.id)
 
 #Формируем пересылаемое сообщение для бота в канал
 async def build_message_to_bot_send(message: Message, chat_id: str) -> None:
