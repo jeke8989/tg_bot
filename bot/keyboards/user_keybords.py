@@ -6,9 +6,9 @@ from config import bot
 
 
 main = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="🔰 Мои каналы", callback_data='my_channels')],
-    [InlineKeyboardButton(text="⚙️ Подписка", callback_data='subscription')],
-    [InlineKeyboardButton(text="💰 Кошелек", callback_data='wallet')]
+    [InlineKeyboardButton(text="🔰 Мои каналы", callback_data='my_channels')]
+    # [InlineKeyboardButton(text="⚙️ Подписка", callback_data='subscription')],
+    # [InlineKeyboardButton(text="💰 Кошелек", callback_data='wallet')]
     
 ] )  
 
