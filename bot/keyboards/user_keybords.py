@@ -89,6 +89,10 @@ async def channel_btn_to_send_post(user_id: str, message: Message) -> InlineKeyb
             text=f'📨 {channel.name}',  # Название канала на кнопке
             callback_data=f"send_{channel.id_channel}@mess_{message.message_id}",  # Данные для обратного вызова
         )
+    # builder.button(
+    #         text=f'✏️ Редактировать', 
+    #         callback_data=f"message_edit_{message.message_id}@chat_{message.chat.id}",  # Данные для обратного вызова
+    #     )
     builder.button(
             text=f'🗑️ Удалить', 
             callback_data=f"message_delete_{message.message_id}@chat_{message.chat.id}",  # Данные для обратного вызова
